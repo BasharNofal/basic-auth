@@ -1,22 +1,29 @@
 'use strict';
 
 const express = require('express');
+const Users = require('./models/users-model.js');
+const auth = require('./middleware/basic.js');
 const router = express.Router();
-const encrypt = require('./middleware/basic.js');
-const encodeAndDecode = require('./middleware/basic.js').encodeAndDecode;
 
-router.post('/signup', encrypt, handleSignUp);
-router.post('/signin', encodeAndDecode, handleSignIn);
 
-function handleSignUp(req, res) {
-    res.status(200).json(req.record);
-}
+const signup = async (req, res) => {
+    try {
+        let record = await Users.addUser(req.body);
+        res.status(201).json(record);
+    } catch (error) {
+        res.status(403).send('Error Creating User');
+    }
+};
 
-function handleSignIn(req, res) {
-    res.status(200).json({
-        "name": req.user,
-        "password": req.pass
-    });
-}
+const signin = async (req, res) => {
+    try {
+        res.status(200).json(req.userInfo);
+    } catch (error) {
+        res.status(403).send('Invalid username or password');
+    }
+};
+
+router.post('/signup', signup);
+router.post('/signin', auth, signin);
 
 module.exports = router;

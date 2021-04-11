@@ -2,7 +2,7 @@
 
 ### URLs
 
-<!-- [Heroku](https://bashar-api-server.herokuapp.com/)\ -->
+[Heroku](https://bashar-api-server.herokuapp.com/)\
 [GitHub Actions](https://github.com/BasharNofal/basic-auth/actions)\
 [Pull Request](https://github.com/BasharNofal/basic-auth/pull/1)
 
